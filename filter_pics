@@ -1,0 +1,44 @@
+#!/bin/bash
+
+base=`pwd`
+
+cd Images
+
+ndeleted=0
+deleted=0
+
+for S in *
+do
+  cd $S
+  for P in *
+  do
+    cd $P
+    for Pic in *
+    do
+      paralellRick1="$base/Emotion/$S/$P/$Pic"
+      paralellRick2="$base/Landmarks/$S/$P/$Pic"
+      paralellRick1=${paralellRick1/.png/_emotion.txt}
+      paralellRick2=${paralellRick2/.png/_landmarks.txt}
+
+      if test -f $paralellRick1
+      then
+        ndeleted=$((ndeleted+1))
+      else
+        rm $Pic
+        rm $paralellRick2
+        deleted=$((deleted+1))
+      fi
+
+    done
+
+    cd ..
+
+  done
+
+  cd ..
+
+done
+
+echo Done
+echo Total deleted: $deleted
+echo Total kept:    $ndeleted

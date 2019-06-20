@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd Landmarks
+
+for f in *
+do
+  png=${f/_landmarks.txt/.png}
+  emo=${f/_landmarks.txt/_emotion.txt}
+
+  if ! (test -f "../Emotion/$emo") || ! (test -f "../Images/$png")
+  then
+    echo $f
+  fi
+
+done
+
